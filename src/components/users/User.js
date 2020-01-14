@@ -1,13 +1,12 @@
 import React, { useEffect, Fragment, useContext } from 'react';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Repos from '../repos/Repos';
 import GithubContext from '../../context/github/githubContext';
 
-const User = ({ getUserRepos, repos, match }) => {
+const User = ({ match }) => {
   const githubContext = useContext(GithubContext);
-  const { getUser, loading, user } = githubContext;
+  const { getUser, loading, user, getUserRepos, repos } = githubContext;
 
   useEffect(() => {
     // These functions will run constantly unless you add a param after the curly brackets
@@ -102,7 +101,7 @@ const User = ({ getUserRepos, repos, match }) => {
       </div>
       <div className='card text-center'>
         <div className='badge badge-primary'>Followers: {followers}</div>
-        <div className='badge badge-success'>Folling: {following}</div>
+        <div className='badge badge-success'>Following: {following}</div>
         <div className='badge badge-light'>Public Repos: {public_repos}</div>
         <div className='badge badge-dark'>Public Gists: {public_gists}</div>
       </div>
@@ -110,13 +109,5 @@ const User = ({ getUserRepos, repos, match }) => {
     </Fragment>
   );
 }; // End of User Function
-
-User.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired,
-  getUserRepos: PropTypes.func.isRequired,
-  repos: PropTypes.array.isRequired
-};
 
 export default User;

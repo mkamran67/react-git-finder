@@ -1,3 +1,4 @@
+// Reducer handles incoming data from actions (GithubState) and returns a new state.
 import {
   SEARCH_USERS,
   SET_LOADING,
@@ -6,22 +7,29 @@ import {
   GET_REPOS
 } from '../types';
 
-// reducers is just a function that sets states
+// reducers is just a function that returns new state
+// reducer mush have an incoming type
 export default (state, action) => {
   // incoming dispatched sets have a type and a possible payload
 
   switch (action.type) {
     case GET_USER: {
       return {
-        ...state,
+        ...state, // state is immutable, so we copy it
         user: action.payload,
         loading: false
       };
     }
-
-    case CLEAR_USERS: {
+    case GET_REPOS: {
       return {
         ...state,
+        repos: action.payload,
+        loading: false
+      };
+    }
+    case CLEAR_USERS: {
+      return {
+        ...state, // state is immutable, so we copy it
         users: [],
         loading: false
       };
@@ -42,7 +50,6 @@ export default (state, action) => {
 
     default: {
       return state;
-      break;
     }
   }
 };
